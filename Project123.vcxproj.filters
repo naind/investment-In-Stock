@@ -18,8 +18,25 @@
     <ClCompile Include="main.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="1.c">
+    <ClCompile Include="Totalpurchase.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="firstScreen.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InputBuyInform.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InputSellInform.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

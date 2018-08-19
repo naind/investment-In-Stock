@@ -139,8 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1.c" />
+    <ClCompile Include="firstScreen.c" />
+    <ClCompile Include="InputSellInform.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="InputBuyInform.c" />
+    <ClCompile Include="Time.c" />
+    <ClCompile Include="Totalpurchase.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
