@@ -25,14 +25,19 @@ int main()
 	int select = 0;
 	int tradDate = 0;
 	int stockNum = 0;
-	int amount = 0;
+	int InPutAmount = 0;
+	int OutPutAmount = 0;
+	int AmountStorage = 0;
 	int AllAmount = 0;
 	int AllBuyPrice = 0;
 	int AllEvaluatedPrice = 0;
 	int EvaluatedPrice = 0;
+	int ValuationProfitLoss = 0;
+	double EvaluationRate = 0;
 	int searchForDate=0;
 	int stockPrice=0;
 	int i = 0;
+	
 
 	while (1)
 	{
@@ -46,53 +51,91 @@ int main()
 			system("cls");
 			}
 	
-		if(select==1)
+		if(select==1) // 매수입력
 		{
-			InputBuyInform(&tradDate, &stockNum, &amount);
+			InputBuyInform(&tradDate, &stockNum, &InPutAmount);
 			scanf("%d", &select);
 			system("cls");
 			}
 
-		if (select == 2)
+		if (select == 2) //매도입력
 		{
-			InputSellInform(&tradDate, &stockNum, &amount);
+			InputSellInform(&tradDate, &stockNum, &OutPutAmount);
 			scanf("%d", &select);
 			system("cls");
 		}
 
 		if (select == 3)
 		{
+						FILE *f;		// 총매입금액
+						f = fopen("005380.txt", "r");
+						while (1)
+						{
+							fscanf(f, "%d%d", &searchForDate, &stockPrice);
+							if (tradDate == searchForDate || tradDate == 0) break;
+						}
 
-			AllAmount += amount;  // 매수수량
-			printf("수량 : %d\n", AllAmount);
+						AllAmount = AllAmount + InPutAmount - OutPutAmount;  // 매수수량
 
-			FILE *f;		// 총매입금액
-			f = fopen("005380.txt", "r");
-			while (1)
-			{
-				fscanf(f, "%d%d", &searchForDate, &stockPrice);
-				if (tradDate == searchForDate || tradDate == 0) break;
-			}
-			fclose(f);
-			AllBuyPrice = AllBuyPrice + (amount * stockPrice);
-			printf("총매입금액 : %d \n", AllBuyPrice);
-			f = fopen("005380.txt", "r");			// 총평가금액
-			while (1)
-			{
-				fscanf(f, "%d%d", &searchForDate, &stockPrice);
-				if ( YMD == searchForDate) break;
-			}
-			fclose(f);
-			AllEvaluatedPrice = AllEvaluatedPrice + (amount * stockPrice);
-			printf("총평가금액 : %d\n", AllEvaluatedPrice);
-			printf("평가손익 : %d\n", AllEvaluatedPrice - AllBuyPrice);
-			printf("평가수익률: %d\n", AllEvaluatedPrice / AllBuyPrice * 100);
-			amount = 0;
+						AllBuyPrice = ( InPutAmount > OutPutAmount )? AllBuyPrice + (InPutAmount * stockPrice) : (AllBuyPrice / AllAmount) * ( AllAmount - OutPutAmount);
+						AmountStorage = InPutAmount;
 
-			printf("뒤로가기 --> 0\n");
-			scanf("%d", &select);
-			system("cls");
+																				// 총평가금액
+						while (1)
+						{
+							fscanf(f, "%d%d", &searchForDate, &stockPrice);
+							if ( YMD == searchForDate) break;
+						}
+						
+						ValuationProfitLoss = (stockPrice - (AllBuyPrice / AllAmount)) * AllAmount; //평가손익 = (최근주가 - 평균매입금액  ) * 보유수량
+
+						AllEvaluatedPrice = AllEvaluatedPrice + (InPutAmount * stockPrice);
+
+						EvaluationRate = ((double)AllEvaluatedPrice / (double)AllBuyPrice) *100 -100;
+
+						printf("수량 : %d\n", AllAmount);
+
+						printf("총매입금액 : %d \n", AllBuyPrice);
+
+						printf("총평가금액 : %d\n", AllEvaluatedPrice);
+
+						printf("평가손익 : %d\n", ValuationProfitLoss);
+
+						printf("평가수익률: %.2lf \n", EvaluationRate);
+			
+						InPutAmount = 0;
+						OutPutAmount = 0;
+						fclose(f);
+						printf("뒤로가기 --> 0\n");
+						scanf("%d", &select);
+						system("cls");
 		}
+
+		if (select == 4)
+		{
+			FILE *F;
+				F = fopen("memo.txt", "w");
+				if ()
+				{
+
+				}
+
+		
+		
+		
+		
+		
+		}
+
+
+
+
+
+		}
+
+
+
+
 	}
 	
 	
